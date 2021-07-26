@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/settings">Настроки </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Портфолио</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row">
+        <form action="/portfolio/add" method="POST" role="form">
+            <div class="form-group">
+                <input name="name" type="text" placeholder="Название"/>
+            </div>
+            <div class="form-group">
+                <input name="description" type="text" placeholder="Краткое описание"/>
+            </div>
+            <input type="submit" id="save" class="btn btn-xs btn-success btn-block"
+                   value="Сохранить">
+        </form>
+    </div>
+    <br><br>
+
+    <table class="table table-hover">
+        <thead class="thead">
+        <tr>
+            <th scope="col">Портфель</th>
+            <th scope="col">Описание</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="portfolio : ${portfolioList}">
+            <td><a th:href="@{/portfolio/{id}/stock(id=${portfolio.id})}" th:utext="${portfolio.name}"></a></td>
+            <td th:utext="${portfolio.description}"></td>
+            <td><a th:href="@{/portfolio/edit/{id}(id=${portfolio.id})}"><i class="bi bi-pencil-square"></i></a>
+            </td>
+            <td><a th:href="@{/portfolio/delete/{id}(id=${portfolio.id})}"><i class="bi bi-trash"></i></a></td>
+        </tr>
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>

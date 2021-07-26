@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/portfolio">Главная </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Скриннер</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row">
+        <h2>Сервис временно недоступен. Повторите попытку чуть позже.</h2>
+
+        <p th:utext="${message}">Сообщение об ошибке</p>
+    </div>
+    <br><br>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/portfolio">Главная </a></li>
+        <li class="breadcrumb-item"><a href="/settings">Настройки</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Типы свечей</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row">
+        <form th:action="@{/settings/chart-type/add}" th:object="${settings}" th:method="POST">
+                <p th:utext="'Текущий тип свечей: ' + ${settings.chartType.getValue()}"/>
+
+                <div class="form-group">
+                    <select name="chartType" class="form-control" th:field="${settings.chartType}">
+                        <option value="0" th:disabled="disabled">Тип свечей</option>
+                        <option th:each="type : ${chartTypes}" th:value="${type.getValue()}"
+                                th:text="${type.getValue()}">
+                        </option>
+                    </select>
+                </div>
+            <input type="submit" id="save" class="btn btn-xs btn-success btn-block"
+                   value="Сохранить">
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

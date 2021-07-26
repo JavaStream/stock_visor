@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/portfolio">Портфолио </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Настройки</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row"><h6><a href="/settings/size">Размеры графиков</a></h6></div>
+
+    <div class="row"><h6><a href="/settings/interval">Интервал</a></h6></div>
+
+    <div class="row"><h6><a href="/settings/chart-type">Типы свечей</a></h6></div>
+</div>
+</body>
+</html>

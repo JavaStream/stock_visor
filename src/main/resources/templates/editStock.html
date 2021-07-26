@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/settings">Настроки </a></li>
+        <li class="breadcrumb-item"><a href="/portfolio">Портфолио </a></li>
+        <li class="breadcrumb-item"><a th:href="@{/portfolio/{portfolioId}/stock(portfolioId=${stock.portfolio.id})}">Скриннер </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Редактирование</li>
+    </ol>
+</nav>
+
+<div class="container base">
+    <div class="row">
+        <form class="col s12" th:action="@{/portfolio/{portfolioId}/stock/edit/{stockId}(portfolioId=${stock.portfolio.id}, stockId=${stock.id})}" th:object="${stock}" th:method="POST">
+            <div class="row">
+                <div class="form-group">
+                    <input name="id" type="text" class="form-control" th:field="*{id}" hidden="hidden">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <label for="name">Название: </label>
+                    <input name="name" type="text" id="name" class="form-control" th:field="*{name}">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="longTicker">Тикер полный: </label>
+                    <input name="longTicker" type="text" id="longTicker" class="form-control" th:field="*{longTicker}" readonly="readonly">
+                </div>
+            </div>
+
+            <div class="row">
+                <div>
+                    <input type="submit" value="Сохранить" class="btn btn-success">
+                    <a th:href="@{/portfolio/{portfolioId}/stock(portfolioId=${stock.portfolio.id})}" th:utext="Назад" class="btn btn-link"></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

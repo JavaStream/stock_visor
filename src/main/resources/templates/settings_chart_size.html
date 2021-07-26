@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/portfolio">Главная </a></li>
+        <li class="breadcrumb-item"><a href="/settings">Настройки</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Размеры графиков</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row">
+        <form th:action="@{/settings/size/add}" th:object="${settings}" th:method="POST">
+            <div class="form-group">
+                <input name="chartHeight" type="text" th:value="${settings.chartHeight}" placeholder="Высота"/>
+                <div style="color:red" th:if="${#fields.hasErrors('chartHeight')}" th:errors="*{chartHeight}"> ChartHeight Error </div>
+            </div>
+            <div class="form-group">
+                <input name="chartWidth" type="text" th:value="${settings.chartWidth}" placeholder="Ширина"/>
+                <div style="color:red" th:if="${#fields.hasErrors('chartWidth')}" th:errors="*{chartWidth}"> СhartWidth Error </div>
+            </div>
+
+            <input type="submit" id="save" class="btn btn-xs btn-success btn-block"
+                   value="Сохранить">
+        </form>
+    </div>
+</div>
+
+<!--
+ <label for="chartHeight">Высота</label>
+    <input type="text" id="chartHeight" th:field="*{chartHeight}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('chartHeight')}" th:errors="*{chartHeight}">ChartHeight Error</div>
+
+    <label for="chartWidth">Ширина</label>
+    <input type="text" id="chartWidth" th:field="*{chartWidth}"/>
+    <div style="color:red" th:if="${#fields.hasErrors('chartWidth')}" th:errors="*{chartWidth}">ChartWidth Error</div>
+
+
+
+
+<form th:action="@{/settings/size/add}" method="POST">
+            <div class="form-group">
+                <input name="chartHeight" type="text" th:value="${settings.chartHeight}" placeholder="Высота"/>
+                <p th:if="${#fields.hasErrors('chartHeight')}" th:errors="${settings.chartHeight}">Name Error</p>
+            </div>
+            <div class="form-group">
+                <input name="chartWidth" type="text" th:value="${settings.chartWidth}" placeholder="Ширина"/>
+                <p th:if="${#fields.hasErrors('chartWidth')}" th:errors="${settings.chartWidth}">Name Error</p>
+            </div>
+            <input type="submit" id="save" class="btn btn-xs btn-success btn-block"
+                   value="Сохранить">
+        </form>
+
+        -->
+
+</body>
+</html>

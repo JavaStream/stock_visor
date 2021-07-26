@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{parts/header::header}"></head>
+
+<body>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/settings">Настроки </a></li>
+        <li class="breadcrumb-item"><a href="/portfolio">Портфолио </a></li>
+        <li class="breadcrumb-item active" aria-current="page">Скриннер</li>
+    </ol>
+</nav>
+
+<div class="container marginleft">
+    <div class="row">
+
+        <!-- FORM OF ADDING STOCKS -->
+        <form th:action="@{/portfolio/{id}/stock/add(id=${portfolioId})}" method="POST" role="form">
+            <div class="form-group">
+                <input name="name" type="text" placeholder="Название"/>
+            </div>
+            <div class="form-group">
+                <input name="longTicker" type="text" placeholder="Тикер полный"/>
+            </div>
+            <input type="submit" id="save" class="btn btn-xs btn-success btn-block"
+                   value="Сохранить">
+        </form>
+    </div>
+    <br><br>
+
+    <h2>STOCKS</h2>
+
+    <!-- TABLE OF STOCKS -->
+    <table class="table table-hover">
+        <thead class="thead">
+        <tr>
+            <th scope="col">Название акции</th>
+            <th scope="col">Тикер краткий</th>
+            <th scope="col">Ред.</th>
+            <th scope="col">Удал.</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="stock : ${stocks}">
+            <td><a th:href="@{/stock/{id}(id=${stock.id})}" th:utext="${stock.name}"></a></td>
+            <td th:utext="${stock.ticker}"></td>
+            <td><a th:href="@{/portfolio/{portfolioId}/stock/edit/{stockId}(portfolioId=${stock.portfolio.id},stockId=${stock.id})}"><i class="bi bi-pencil-square"></i></a></td>
+            <td><a th:href="@{/portfolio/{portfolioId}/stock/delete/{stockId}(portfolioId=${stock.portfolio.id},stockId=${stock.id})}"><i class="bi bi-trash"></i></a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h2>CHARTS</h2>
+
+    <!-- CHARTS -->
+</div>
+
+<div>
+    <ul>
+        <li id="chart" th:each="stock : ${stocks}">
+            <iframe th:height="${settings.chartHeight}" th:width="${settings.chartWidth}"
+                    th:src="${stock.baseUrl} + '/?pair_ID=' + ${stock.instrumentId} + '&interval=' + ${settings.interval.getValue()}
+                        + '&plotStyle=' + ${settings.chartType.getValue()} + '&domain_ID=7&lang_ID=7&timezone_ID=17'">
+            </iframe>
+        </li>
+    </ul>
+</div>
+
+
+
+</body>
+</html>
