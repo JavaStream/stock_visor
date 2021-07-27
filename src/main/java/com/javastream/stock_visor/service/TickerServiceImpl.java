@@ -1,5 +1,6 @@
 package com.javastream.stock_visor.service;
 
+import com.google.common.base.Strings;
 import com.javastream.stock_visor.exception.ApiException;
 import com.javastream.stock_visor.utils.JsoupUtil;
 import org.jsoup.Jsoup;
@@ -17,6 +18,7 @@ public class TickerServiceImpl implements TickerService {
     private final Logger logger = LoggerFactory.getLogger(TickerServiceImpl.class);
 
     private final String BASE_URL = "https://ru.investing.com/equities/";
+    private static final String DATA_ELEMENT = "__NEXT_DATA__";
 
     @Override
     public String findTicker(Document document) {
@@ -26,7 +28,7 @@ public class TickerServiceImpl implements TickerService {
 
     @Override
     public String findInstrumentId(Document document) {
-        Element element = document.getElementById("__NEXT_DATA__");
+        Element element = document.getElementById(DATA_ELEMENT);
         Objects.requireNonNull(element, "Jsoup Element is null");
         return JsoupUtil.extractInstrumentId(element);
     }

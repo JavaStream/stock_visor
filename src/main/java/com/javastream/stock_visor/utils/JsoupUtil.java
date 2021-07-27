@@ -1,5 +1,6 @@
 package com.javastream.stock_visor.utils;
 
+import com.javastream.spliterator.Spliterators;
 import org.apache.logging.log4j.util.Strings;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,15 +10,21 @@ public class JsoupUtil {
 
     private static final String PATTERN_INSTRUMENT = "[0-9]+";
     private static final String PATTERN_TICKER     = "\\([^)]*\\)";
+    private static final String INSTRUMENT_ID_KEY = "instrument_id";
+    private static final String COMMA_KEY = ",";
 
     public static String extractInstrumentId(Element element) {
-        String[] elements = element.data().split("instrument_id");
-        String[] array = elements[1].split(",");
-        String str = array[0];
+        String result = new Spliterators(element.data())
+                .split(INSTRUMENT_ID_KEY)
+                .choice(1)
+                .split(COMMA_KEY)
+                .choice(0)
+                .trim()
+                .build();
 
-        Matcher matcher = Pattern.compile(PATTERN_INSTRUMENT).matcher(str);
+        Matcher matcher = Pattern.compile(PATTERN_INSTRUMENT).matcher(result);
         if (matcher.find()) {
-            return str.substring(matcher.start(), matcher.end());
+            return result.substring(matcher.start(), matcher.end());
         }
 
         return Strings.EMPTY;
